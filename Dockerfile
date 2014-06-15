@@ -16,4 +16,4 @@ RUN sed 's/#admin_token=ADMIN/admin_token=7a04a385b907caca141f/g' -i /etc/keysto
 EXPOSE 35357
 EXPOSE 5000
 
-#CMD ["/usr/bin/supervisord", "-n"]
+CMD ["/usr/bin/supervisord", "-n"]

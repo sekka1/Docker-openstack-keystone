@@ -12,9 +12,11 @@ Keystone admin token: 7a04a385b907caca141f
 You can use this container in 2 ways.  The first way is to just start up the container and have a non-persistent keystone database.  The second is to mount a volume from your local computer with a keystone database to be used.
 
 Running with a new sqlite db
+
     docker run -p 35357:35357 -p 5000:5000 -d garland/docker-openstack-keystone
 
 Running with a mounted persistent sqlite db
+
     docker run -p 35357:35357 -p 5000:5000 -v /home/docker:/var/lib/keystone  -d garland/docker-openstack-keystone
 
 # Verify if Keystone is running correctly

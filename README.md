@@ -6,7 +6,9 @@ Openstack Keystone running in a docker container
 # Info
 
 Keystone version: icehouse
+
 Ubuntu version: 14.04
+
 Keystone admin token: 7a04a385b907caca141f
 
 # Running this container

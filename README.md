@@ -4,11 +4,13 @@ Docker-openstack-keystone
 Openstack Keystone running in a docker container
 
 # Info
+
 Keystone version: icehouse
 Ubuntu version: 14.04
 Keystone admin token: 7a04a385b907caca141f
 
 # Running this container
+
 You can use this container in 2 ways.  The first way is to just start up the container and have a non-persistent keystone database.  The second is to mount a volume from your local computer with a keystone database to be used.
 
 Running with a new sqlite db
@@ -20,6 +22,7 @@ Running with a mounted persistent sqlite db
     docker run -p 35357:35357 -p 5000:5000 -v /home/docker:/var/lib/keystone  -d garland/docker-openstack-keystone
 
 # Verify if Keystone is running correctly
+
 After starting this container with either method, you should be able to make calls to the API
 
 Documentation: http://docs.openstack.org/api/openstack-identity-service/2.0/content/User_Operations_OS-KSADM.html

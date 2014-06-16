@@ -19,9 +19,9 @@ Running with a new sqlite db
 
     docker run -p 35357:35357 -p 5000:5000 -d garland/docker-openstack-keystone
 
-Running with a mounted persistent sqlite db
+Running with a mounted persistent sqlite db.  There is an included empty Keystone db in the keystone_db directory you can use to start off with.  The idea here is that the keystone.db file will be outside the container, so when/if the container restarts, it wont restart with the blank db.
 
-    docker run -p 35357:35357 -p 5000:5000 -v /home/docker:/var/lib/keystone  -d garland/docker-openstack-keystone
+    docker run -p 35357:35357 -p 5000:5000 -v <REPO_HOME>/keystone_db:/var/lib/keystone  -d garland/docker-openstack-keystone
 
 # Verify if Keystone is running correctly
 

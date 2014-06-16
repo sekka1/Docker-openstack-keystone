@@ -51,9 +51,85 @@ Documentation: http://docs.openstack.org/api/openstack-identity-service/2.0/cont
 ## List all users:
     curl -H "X-Auth-Token:7a04a385b907caca141f" http://<CONTAINER_IP>:35357/v2.0/users
 
+Response:
+
+    {"users": []}
+
 ## Create a user:
     curl -X POST \
     -H "X-Auth-Token:7a04a385b907caca141f" \
     -H "Content-type: application/json" \
     -d '{"user":{"name":"Joe","email":"joe@example.com.com","enabled":true,"password":"1234"}}' \
     http://<CONTAINER_IP>:35357/v2.0/users -v
+
+Response:
+
+    {
+      "user": {
+          "username": "Joe",
+          "name": "Joe",
+          "enabled": true,
+          "email": "joe@example.com",
+          "id": "cc63dd66e1ad4401a002d8d23ba9b0bd"
+      }
+    }
+
+## Update a user's password
+
+    curl -X POST \
+    -H "X-Auth-Token:7a04a385b907caca141f" \
+    -H "Content-type: application/json" \
+    -d '{"passwordCredentials":{"username":"Joe","password":"new_password"}}' \
+    http://<CONTAINER_IP>:35357/v2.0/users/<USER_ID>/OS-KSADM
+
+## Delete a user
+
+    curl -X DELETE \
+    -H "X-Auth-Token:7a04a385b907caca141f" \
+    -H "Content-type: application/json" \
+    http://localhost:35357/v2.0/users/<USER_ID> -v
+
+## Authenticate a user
+
+    curl -d '{"auth":{"passwordCredentials":{"username": "Joe", "password": "1234"}}}'  \
+    -H "Content-type: application/json" \
+     http://localhost:35357/v2.0/tokens -v
+
+Response:
+
+    {
+        "access": {
+        "token": {
+        "issued_at": "2014-06-16T22:24:26.089380",
+        "expires": "2014-06-16T23:24:26Z",
+        "id": "MIIDAwYJKoZIhvcNAQcCoIIC9DCCAvACAQExDTALBglghkgBZQMEAgEwggFRBgkqhkiG9w0BBwGgggFCBIIBPnsiYWNjZXNzIjogeyJ0b2tlbiI6IHsiaXNzdWVkX2F0IjogIjIwMTQtMDYtMTZUMjI6MjQ6MjYuMDg5MzgwIiwgImV4cGlyZXMiOiAiMjAxNC0wNi0xNlQyMzoyNDoyNloiLCAiaWQiOiAicGxhY2Vob2xkZXIifSwgInNlcnZpY2VDYXRhbG9nIjogW10sICJ1c2VyIjogeyJ1c2VybmFtZSI6ICJnMUBhZGIuY29tIiwgInJvbGVzX2xpbmtzIjogW10sICJpZCI6ICIyOWE0MmJmMmNkZTA0ZTkzYjZhNjliODFkZTRhYWFmYiIsICJyb2xlcyI6IFtdLCAibmFtZSI6ICJnMUBhZGIuY29tIn0sICJtZXRhZGF0YSI6IHsiaXNfYWRtaW4iOiAwLCAicm9sZXMiOiBbXX19fTGCAYUwggGBAgEBMFwwVzELMAkGA1UEBhMCVVMxDjAMBgNVBAgMBVVuc2V0MQ4wDAYDVQQHDAVVbnNldDEOMAwGA1UECgwFVW5zZXQxGDAWBgNVBAMMD3d3dy5leGFtcGxlLmNvbQIBATALBglghkgBZQMEAgEwDQYJKoZIhvcNAQEBBQAEggEAGvOUnTCqxj80p2DZk6B1Xxmb5CquleC+6mhGpkg4CfjJ+1ZcwhRo4MZQkzGH0XocvGEV6ELDl-Pw1ROchfJchSFvyBLfqLIrFbayZNkj+p-Y0KPTTM6fNcrRFbvMsZMd3K3uePX2BRtGdiNX206tY-CXcxZv7Yh2v+7wNtcmHYa-piFbWjBB5Il2QzznIjlnAwm8rvpaBmL4LWgA9cQe0wF5eLuzxZdf17p0IAr0eoT2712sMJFtyAPcXeVIgXTpm1wjr8AI3j9bvOMxO-6mwjrYKa-GIruEjot8MLt2zV6PCtYrwHGcnmJ0BjxR3nvUiopJAi7ALhTDbfWecH+A=="
+      },
+        "serviceCatalog": [],
+        "user": {
+        "username": "Joe",
+        "roles_links": [],
+        "id": "29a42bf2cde04e93b6a69b81de4aaafb",
+        "roles": [],
+        "name": "Joe"
+      },
+      "metadata": {
+      "is_admin": 0,
+      "roles": []
+      }
+    }
+    }
+
+The "id" is the "< AUTH_TOKEN >"
+
+## Validate a token
+
+Return meta data
+
+    curl -H "X-Auth-Token:7a04a385b907caca141f" http://localhost:35357/v2.0/tokens/<AUTH_TOKEN>
+
+Return no meta data
+
+    curl -I -H "X-Auth-Token:7a04a385b907caca141f" http://localhost:35357/v2.0/tokens/<AUTH_TOKEN>
+
+
+    
